@@ -19,7 +19,7 @@ git clone https://github.com/sky2016cn/luci-app-poweroff.git package/luci-app-po
 git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash
 
 #5.OpenAppFilter
-git clone https://github.com/destan19/OpenAppFilter.git /home/ben/lede/package/OpenAppFilter
+git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 
 #6. Replace with JerryKuKu’s Argon
 #rm openwrt/package/lean/luci-theme-argon -rf
