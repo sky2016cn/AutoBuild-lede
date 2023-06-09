@@ -70,15 +70,15 @@ jobs:
         ./scripts/feeds install -a
         ./scripts/feeds install -a
 
-    - name: Import external feeds - poweroff
-      working-directory: ./openwrt
-      run: |
-        git clone https://github.com/sky2016cn/luci-app-poweroff.git package/luci-app-poweroff
-        
     - name: Import external feeds - OpenClash
       working-directory: ./openwrt
       run: |
         git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash
+
+    - name: Import external feeds - poweroff
+      working-directory: ./openwrt
+      run: |
+        git clone https://github.com/sky2016cn/luci-app-poweroff.git package/luci-app-poweroff
       
     #- name: Import external feeds - OpenAppFilter
     #  working-directory: ./openwrt
