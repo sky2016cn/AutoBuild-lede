@@ -58,20 +58,31 @@ jobs:
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
         echo 'src-git helloworld https://github.com/fw876/helloworld.git' >>feeds.conf.default
+        echo 'src-git dockerman https://github.com/lisaac/luci-app-dockerman' >>feeds.conf.default
+        echo 'src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall.git;packages' >>feeds.conf.default
+        echo 'src-git passwall_luci https://github.com/xiaorouji/openwrt-passwall.git;luci' >>feeds.conf.default
+        echo 'src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git' >>feeds.conf.default
 
     - name: Update & Install feeds
       working-directory: ./openwrt
       run: |
         ./scripts/feeds update -a
         ./scripts/feeds install -a
-        ./scripts/feeds update -a
         ./scripts/feeds install -a
 
-    - name: 自定义插件
+    - name: Import external feeds - poweroff
       working-directory: ./openwrt
       run: |
         git clone https://github.com/sky2016cn/luci-app-poweroff.git package/luci-app-poweroff
-    #    git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash    
+        
+    - name: Import external feeds - OpenClash
+      working-directory: ./openwrt
+      run: |
+        git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash
+      
+    #- name: Import external feeds - OpenAppFilter
+    #  working-directory: ./openwrt
+    #  run: |
     #    git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
         
     #- name: Import external feeds - JerryKuKu Argon
