@@ -6,7 +6,7 @@
 # <https://github.com/KFERMercer/OpenWrt-CI>
 #
 
-name: Sync Code from sky2016cn
+name: Sync Code from eSir Autobuild Script
 
 # Add a button to trigger the workflow - Kuroko
 on: 
@@ -41,7 +41,7 @@ jobs:
         git config --global user.name "github-actions[bot]"
         
     - name: Start Syncing Autobuild Most Updated Changes
-      run: git pull https://github.com/sky2016cn/AutoBuild-lede/actions.git --log --no-commit
+      run: git pull https://github.com/esirplayground/AutoBuild-OpenWrt.git --log --no-commit
 
     - name: Download All New Changes
       run: |
