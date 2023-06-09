@@ -6,7 +6,7 @@
 # <https://github.com/KFERMercer/OpenWrt-CI>
 #
 
-name: Sync Code from eSir Autobuild Script
+name: Sync Code from sky2016cn
 
 # Add a button to trigger the workflow - Kuroko
 on: 
