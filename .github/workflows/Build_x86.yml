@@ -1,11 +1,12 @@
 #=================================================
+# Copyright (c) 2019-2023 sky2016cn
+# Author: sky2016cn
+# licensed under the MIT License
+# See /LICENSE for more information
 # Description: Build OpenWrt using GitHub Actions
-# Lisence: MIT
-# Author: eSirPlayground
-# Youtube Channel: https://goo.gl/fvkdwm 
 #=================================================
 
-name: Build_x86_64
+name: Build_x86
 
 # Add a button to trigger the workflow
 on: 
@@ -45,7 +46,7 @@ jobs:
           mysql* \
           php*
         sudo -E apt-get update
-        sudo -E apt-get -y install ack antlr3 aria2 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pip libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+        sudo -E apt-get -y install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
 
@@ -56,7 +57,11 @@ jobs:
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
-        echo "src-git ssrp https://github.com/fw876/helloworld.git" >> ./feeds.conf.default
+        echo 'src-git helloworld https://github.com/fw876/helloworld.git' >>feeds.conf.default
+        echo 'src-git dockerman https://github.com/lisaac/luci-app-dockerman' >>feeds.conf.default
+        echo 'src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall.git;packages' >>feeds.conf.default
+        echo 'src-git passwall_luci https://github.com/xiaorouji/openwrt-passwall.git;luci' >>feeds.conf.default
+        echo 'src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git' >>feeds.conf.default
         
     - name: Update & Install feeds
       working-directory: ./openwrt
@@ -65,6 +70,16 @@ jobs:
         ./scripts/feeds install -a
         ./scripts/feeds install -a
 
+    - name: Import external feeds - OpenClash
+      working-directory: ./openwrt
+      run: |
+        git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash
+
+    - name: Import external feeds - poweroff
+      working-directory: ./openwrt
+      run: |
+        git clone https://github.com/sky2016cn/luci-app-poweroff.git package/luci-app-poweroff
+        
     #- name: Import external feeds - passwall
     #  working-directory: ./openwrt
     #  run: |
@@ -76,9 +91,9 @@ jobs:
     #  run: |
     #    git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon-jerrykuku
 
-    - name: Configuration Customization - Build_x86_64
+    - name: Configuration Customization - Build_x86
       env:
-        CONFIG_FILE: 'x86_64.config'
+        CONFIG_FILE: 'x86.config'
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         chmod +x ./customize.sh && ./customize.sh
