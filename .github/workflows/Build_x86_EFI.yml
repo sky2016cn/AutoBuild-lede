@@ -14,9 +14,9 @@ on:
   workflow_dispatch:
 
   #schedule:
-    # 对应的是 UTC 时间，需要转换，20 代表北京时间4点，每个月1日/15日4点编译一次
-    # schedule去＃号，- cron 对齐schedule的 h，开始定时编译，Actions会有十五分钟的延迟 
     #- cron: 0 20 1,15 * *
+    # 对应的是 UTC 时间，需要转换，20 代表北京时间4点，每个月1日/15日4点编译一次
+    # schedule去＃号，- cron 对齐schedule的 h，开始定时编译，Actions会有十五分钟的延迟
     
 jobs:
   build:
