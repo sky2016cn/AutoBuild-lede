@@ -73,11 +73,6 @@ jobs:
         ./scripts/feeds install -a
         ./scripts/feeds install -a
 
-    - name: Import external feeds - OpenClash
-      working-directory: ./openwrt
-      run: |
-        git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash
-
     - name: Import external feeds - poweroff
       working-directory: ./openwrt
       run: |
