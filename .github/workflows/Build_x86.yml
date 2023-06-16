@@ -85,16 +85,19 @@ jobs:
       run: |
         git clone https://github.com/sky2016cn/luci-app-poweroff.git package/luci-app-poweroff
         
+    # 范例 1
     #- name: Import external feeds - passwall
     #  working-directory: ./openwrt
     #  run: |
     #    git clone https://github.com/xiaorouji/openwrt-passwall.git package/lienol
     #    git clone "your_github_link" package/"your_folder_name"      
 
-    #- name: Import external feeds - JerryKuKu Argon
+    # 范例 2
+    #- name: Import external feeds - luci-theme-argon
     #  working-directory: ./openwrt
     #  run: |
-    #    git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon-jerrykuku
+    #    rm -rf feeds/luci/themes/luci-theme-argon
+    #    git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon
 
     - name: Configuration Customization - Build_x86
       env:
