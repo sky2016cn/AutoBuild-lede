@@ -77,7 +77,7 @@ jobs:
     - name: Import external feeds - OpenClash
       working-directory: ./openwrt
       run: |
-        git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash     
+        git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash
 
     # 范例 1
     #- name: Import external feeds - OpenAppFilter
