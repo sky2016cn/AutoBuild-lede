@@ -63,10 +63,12 @@ jobs:
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
         echo 'src-git helloworld https://github.com/fw876/helloworld.git' >>feeds.conf.default
-        echo 'src-git dockerman https://github.com/lisaac/luci-app-dockerman' >>feeds.conf.default
         echo 'src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall.git;packages' >>feeds.conf.default
         echo 'src-git passwall_luci https://github.com/xiaorouji/openwrt-passwall.git;luci' >>feeds.conf.default
         echo 'src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git' >>feeds.conf.default
+        
+      # L大已经默认添加了dockerman，若要重新添加，必须更新对应的.config配置文件
+      # echo 'src-git dockerman https://github.com/lisaac/luci-app-dockerman' >>feeds.conf.default        
         
     - name: Update & Install feeds
       working-directory: ./openwrt
@@ -79,12 +81,14 @@ jobs:
       working-directory: ./openwrt
       run: |
         git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash
+        mv package/OpenClash/luci-app-openclash package
+        rm -rf package/OpenClash
 
     - name: Import external feeds - poweroff
       working-directory: ./openwrt
       run: |
         git clone https://github.com/sky2016cn/luci-app-poweroff.git package/luci-app-poweroff
-        
+     
     # 范例 1: 注意拉取命令的保存路径
     #- name: Import external feeds - OpenAppFilter
     #  working-directory: ./openwrt
