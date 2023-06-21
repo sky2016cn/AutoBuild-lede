@@ -67,7 +67,7 @@ jobs:
         echo 'src-git passwall_luci https://github.com/xiaorouji/openwrt-passwall.git;luci' >>feeds.conf.default
         echo 'src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git' >>feeds.conf.default
         
-      # L大已经默认添加了dockerman，若要重新添加，必须更新对应的.config配置文件
+      # L大已经默认添加了dockerman
       # echo 'src-git dockerman https://github.com/lisaac/luci-app-dockerman' >>feeds.conf.default
         
     - name: Update & Install feeds
