@@ -84,6 +84,8 @@ jobs:
     #  working-directory: ./openwrt
     #  run: |
     #    git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash
+    #    mv package/OpenClash/luci-app-openclash package
+    #    rm -rf package/OpenClash
 
     # 范例 3: 注意拉取命令的保存路径
     #- name: Import external feeds - luci-theme-argon
