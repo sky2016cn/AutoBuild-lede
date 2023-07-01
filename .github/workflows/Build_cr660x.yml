@@ -72,14 +72,8 @@ jobs:
         ./scripts/feeds update -a
         ./scripts/feeds install -a
         ./scripts/feeds install -a
-
-    # 范例 1: 注意拉取命令的保存路径
-    #- name: Import external feeds - poweroff
-    #  working-directory: ./openwrt
-    #  run: |
-    #    git clone https://github.com/sky2016cn/luci-app-poweroff.git package/luci-app-poweroff
   
-    # 范例 2: 注意拉取命令的保存路径
+    # 范例 1: 注意拉取命令的保存路径
     #- name: Import external feeds - OpenClash
     #  working-directory: ./openwrt
     #  run: |
@@ -87,7 +81,7 @@ jobs:
     #    mv package/OpenClash/luci-app-openclash package
     #    rm -rf package/OpenClash
 
-    # 范例 3: 注意拉取命令的保存路径
+    # 范例 2: 注意拉取命令的保存路径
     #- name: Import external feeds - luci-theme-argon
     #  working-directory: ./openwrt
     #  run: |
