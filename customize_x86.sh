@@ -15,5 +15,10 @@ sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' openwrt/package/lean/default-se
 #3. 修改默认皮肤
 sed -i 's/+luci-theme-bootstrap/+luci-theme-argon-mod/g' openwrt/feeds/luci/collections/luci/Makefile
 
-#4. Replace with JerryKuKu’s Argon
+#4. 修改内核版本
+#sed -i 's/KERNEL_PATCHVER:=6.1/KERNEL_PATCHVER:=5.15/g' openwrt/target/linux/x86/Makefile
+#sed -i 's/KERNEL_TESTING_PATCHVER:=5.15/KERNEL_TESTING_PATCHVER:=6.1/g' openwrt/target/linux/x86/Makefile
+
+#5. Replace with JerryKuKu’s Argon
 #rm openwrt/package/lean/luci-theme-argon -rf
+
