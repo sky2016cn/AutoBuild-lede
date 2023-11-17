@@ -69,7 +69,7 @@ jobs:
         echo "src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git;main" >> ./feeds.conf.default
         
       # L大默认添加了dockerman
-      # echo 'src-git dockerman https://github.com/lisaac/luci-app-dockerman' >> ./feeds.conf.default
+      # echo "src-git dockerman https://github.com/lisaac/luci-app-dockerman" >> ./feeds.conf.default
         
     - name: Update feeds
       working-directory: ./openwrt
