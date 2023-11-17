@@ -66,11 +66,19 @@ jobs:
         echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> ./feeds.conf.default
         echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> ./feeds.conf.default
         
-    - name: Update & Install feeds
+    - name: Update feeds
       working-directory: ./openwrt
       run: |
         ./scripts/feeds update -a
+
+    - name: Install feeds
+      working-directory: ./openwrt
+      run: |
         ./scripts/feeds install -a
+
+    - name: Install feeds
+      working-directory: ./openwrt
+      run: |
         ./scripts/feeds install -a
   
     # 范例 1: 注意拉取命令的保存路径
@@ -109,6 +117,10 @@ jobs:
         echo -e "$(nproc) thread build."
         make -j$(nproc) V=s
 
+    - name: Check Space
+      run: |
+        df -h
+        
     - name : Upload artifact
       uses: actions/upload-artifact@master
       with:
