@@ -71,11 +71,19 @@ jobs:
       # L大默认添加了dockerman
       # echo 'src-git dockerman https://github.com/lisaac/luci-app-dockerman' >> ./feeds.conf.default
         
-    - name: Update & Install feeds
+    - name: Update feeds
       working-directory: ./openwrt
       run: |
         ./scripts/feeds update -a
+
+    - name: Install feeds
+      working-directory: ./openwrt
+      run: |
         ./scripts/feeds install -a
+
+    - name: Install feeds
+      working-directory: ./openwrt
+      run: |
         ./scripts/feeds install -a
 
     - name: Import external feeds - OpenClash
@@ -124,6 +132,10 @@ jobs:
         echo -e "$(nproc) thread build."
         make -j$(nproc) V=s
 
+    - name: Check Space
+      run: |
+        df -h
+        
     - name : Upload artifact
       uses: actions/upload-artifact@master
       with:
