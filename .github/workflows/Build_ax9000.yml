@@ -1,0 +1,168 @@
+#=================================================
+# Copyright (c) 2019-2023 sky2016cn
+# Author: sky2016cn
+# licensed under the MIT License
+# See /LICENSE for more information
+# Description: Build OpenWrt using GitHub Actions
+#=================================================
+
+name: Build_ax9000
+
+# Add a button to trigger the workflow
+on: 
+  repository_dispatch:
+  workflow_dispatch:
+
+  #schedule:
+    #- cron: 0 20 1,15 * *
+    # 对应的是 UTC 时间，需要转换，20 代表北京时间4点，每个月1日/15日4点编译一次
+    # schedule去＃号，- cron 对齐schedule的 h，开始定时编译，Actions会有十五分钟的延迟
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Before freeing up disk space
+      run: |
+        echo "Before freeing up disk space"
+        echo "=============================================================================="
+        df -hT
+        echo "=============================================================================="
+
+    - name: "Optimize Disk Space"
+      uses: "hugoalh/disk-space-optimizer-ghaction@v0.8.0"
+      with:
+        operate_sudo: "True"
+        general_include: ".+"
+        general_exclude: |-
+          ^GCC$
+          ^G\+\+$
+          Clang
+          LLVM
+        docker_include: ".+"
+        docker_prune: "True"
+        docker_clean: "True"
+        apt_prune: "True"
+        apt_clean: "True"
+        homebrew_prune: "True"
+        homebrew_clean: "True"
+        npm_prune: "True"
+        npm_clean: "True"
+        os_swap: "True"
+
+    - name: Freeing up disk space
+      uses: easimon/maximize-build-space@master
+      with: 
+        root-reserve-mb: 2048
+        swap-size-mb: 1
+        remove-dotnet: 'true'
+        remove-android: 'true'
+        remove-haskell: 'true'
+        remove-codeql: 'true'
+        remove-docker-images: 'true'
+
+    - name: Free up disk space complete
+      run: |
+        echo "Free up disk space complete"
+        echo "=============================================================================="
+        df -hT
+        echo "=============================================================================="
+      
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        set +e
+        docker rmi `docker images -q`
+        echo "Deleting files, please wait ..."
+        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
+        sudo -E apt-get update
+        sudo -E apt-get -y install $(curl -fsSL raw.githubusercontent.com/sky2016cn/AutoBuild-lede/master/depends-lede)
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+
+    - name: Check Space
+      run: |
+        df -h
+        
+    - name: Clone source code
+      env: 
+        REPO_URL: https://github.com/coolsnowwolf/lede
+        REPO_BRANCH: master
+      run: |
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+        cd openwrt
+        echo "src-git helloworld https://github.com/fw876/helloworld.git" >> ./feeds.conf.default
+        echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> ./feeds.conf.default
+        echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> ./feeds.conf.default
+        echo "src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git;main" >> ./feeds.conf.default
+        
+    - name: Update feeds
+      working-directory: ./openwrt
+      run: |
+        ./scripts/feeds update -a
+
+    - name: Install feeds
+      working-directory: ./openwrt
+      run: |
+        ./scripts/feeds install -a
+
+    - name: Install feeds
+      working-directory: ./openwrt
+      run: |
+        ./scripts/feeds install -a
+
+    - name: Import external feeds - OpenClash
+      working-directory: ./openwrt
+      run: |
+        git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash
+        mv package/OpenClash/luci-app-openclash package
+        rm -rf package/OpenClash
+
+    # 范例 1: 注意拉取命令的保存路径
+    #- name: Import external feeds - OpenAppFilter
+    #  working-directory: ./openwrt
+    #  run: |
+    #    git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
+    
+    # 范例 2: 注意拉取命令的保存路径
+    #- name: Import external feeds - luci-theme-argon
+    #  working-directory: ./openwrt
+    #  run: |
+    #    rm -rf feeds/luci/themes/luci-theme-argon
+    #    git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon
+    
+    - name: Configuration Customization - Build_ax9000
+      env:
+        CONFIG_FILE: 'ax9000.config'
+      run: |
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        chmod +x ./customize.sh && ./customize.sh
+        cd openwrt && make defconfig
+        
+    - name: Download package
+      working-directory: ./openwrt
+      run: |
+        make download -j$(nproc)
+        find dl -size -1024c -exec ls -l {} \;
+        find dl -size -1024c -exec rm -f {} \;
+
+    - name: Build firmware
+      working-directory: ./openwrt
+      run: |
+        echo -e "$(nproc) thread build."
+        make -j$(nproc) V=s
+
+    - name: Check Space
+      run: |
+        df -h
+        
+    - name : Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: OpenWrt
+        path: openwrt/bin
