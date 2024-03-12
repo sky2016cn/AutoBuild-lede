@@ -102,7 +102,14 @@ jobs:
         echo "src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git;main" >> ./feeds.conf.default
         
       # L大默认添加了dockerman
-      # echo "src-git dockerman https://github.com/lisaac/luci-app-dockerman" >> ./feeds.conf.default        
+      # echo "src-git dockerman https://github.com/lisaac/luci-app-dockerman" >> ./feeds.conf.default
+
+    # 范例 1: 添加 argon 皮肤，因为拉取到 feeds 文件夹，都必须在更新 feeds 命令之前拉取。原版OpenWrt需要去除18.06分支，拉取主分支
+    #- name: Import external feeds - luci-theme-argon
+    #  working-directory: ./openwrt
+    #  run: |
+    #    rm -rf feeds/luci/themes/luci-theme-argon
+    #    git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon
         
     - name: Update feeds
       working-directory: ./openwrt
@@ -131,18 +138,11 @@ jobs:
       run: |
         git clone https://github.com/sky2016cn/luci-app-poweroff.git package/luci-app-poweroff
      
-    # 范例 1: 注意拉取命令的保存路径
+    # 范例 2: 注意拉取命令的保存路径
     #- name: Import external feeds - OpenAppFilter
     #  working-directory: ./openwrt
     #  run: |
     #    git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
-    
-    # 范例 2: 注意拉取命令的保存路径
-    #- name: Import external feeds - luci-theme-argon
-    #  working-directory: ./openwrt
-    #  run: |
-    #    rm -rf feeds/luci/themes/luci-theme-argon
-    #    git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon
 
     - name: Configuration Customization - Build_x86
       env:
