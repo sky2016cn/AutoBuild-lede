@@ -101,11 +101,6 @@ jobs:
         echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> ./feeds.conf.default
         echo "src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git;main" >> ./feeds.conf.default
 
-    - name: Import external feeds - msd_lite
-      working-directory: ./openwrt
-      run: |
-        git clone https://github.com/sky2016cn/luci-app-msd_lite.git package/luci-app-msd_lite 
-
     - name: Update feeds
       working-directory: ./openwrt
       run: |
@@ -128,6 +123,21 @@ jobs:
         mv package/OpenClash/luci-app-openclash package
         rm -rf package/OpenClash
 
+    - name: Import external feeds - msd_lite
+      working-directory: ./openwrt
+      run: |
+        git clone https://github.com/sky2016cn/luci-app-msd_lite.git feeds/luci/applications/luci-app-msd_lite
+
+    - name: Update feeds
+      working-directory: ./openwrt
+      run: |
+        ./scripts/feeds update -a
+        
+    - name: Install feeds
+      working-directory: ./openwrt
+      run: |
+        ./scripts/feeds install -a -f
+       
     # 范例 1: 注意拉取命令的保存路径
     #- name: Import external feeds - OpenAppFilter
     #  working-directory: ./openwrt
