@@ -101,6 +101,11 @@ jobs:
         echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> ./feeds.conf.default
         echo "src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git;main" >> ./feeds.conf.default
 
+    - name: Import external feeds - msd_lite
+      working-directory: ./openwrt
+      run: |
+        git clone https://github.com/sky2016cn/luci-app-msd_lite.git package/luci-app-msd_lite 
+
     - name: Update feeds
       working-directory: ./openwrt
       run: |
