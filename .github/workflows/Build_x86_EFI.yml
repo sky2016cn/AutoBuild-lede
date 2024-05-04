@@ -102,7 +102,7 @@ jobs:
         echo "src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git;main" >> ./feeds.conf.default
         
       # L大默认添加了dockerman
-      # echo "src-git dockerman https://github.com/lisaac/luci-app-dockerman" >> ./feeds.conf.default     
+      # echo "src-git dockerman https://github.com/lisaac/luci-app-dockerman" >> ./feeds.conf.default    
         
     - name: Update feeds
       working-directory: ./openwrt
@@ -130,23 +130,6 @@ jobs:
       working-directory: ./openwrt
       run: |
         git clone https://github.com/sky2016cn/luci-app-poweroff.git package/luci-app-poweroff
-
-    - name: Import external feeds - msd_lite
-      working-directory: ./openwrt
-      run: |
-        git clone https://github.com/ximiTech/luci-app-msd_lite.git feeds/luci/applications/luci-app-msd_lite
-        rm -rf feeds/packages/net/msd_lite
-        git clone https://github.com/ximiTech/msd_lite.git feeds/packages/net/msd_lite
-
-    - name: Update feeds
-      working-directory: ./openwrt
-      run: |
-        ./scripts/feeds update -a
-
-    - name: Install feeds
-      working-directory: ./openwrt
-      run: |
-        ./scripts/feeds install -a        
     
     # 范例 1: 注意拉取命令的保存路径
     #- name: Import external feeds - OpenAppFilter
