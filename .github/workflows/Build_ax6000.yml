@@ -20,7 +20,7 @@ on:
     
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - name: Before freeing up disk space
@@ -76,14 +76,14 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        set +e
-        docker rmi `docker images -q`
-        echo "Deleting files, please wait ..."
-        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
-        sudo -E apt-get update
-        sudo -E apt-get -y install $(curl -fsSL raw.githubusercontent.com/sky2016cn/AutoBuild-lede/master/depends-lede)
-        sudo -E apt-get -y autoremove --purge
-        sudo -E apt-get clean
+        sudo -E apt-get -qq update
+        sudo -E apt-get -qq install $(curl -fsSL raw.githubusercontent.com/sky2016cn/AutoBuild-lede/master/depends-lede)
+        sudo -E apt-get -qq autoremove --purge
+        sudo -E apt-get -qq clean
+        sudo rm -rf /etc/apt/sources.list.d/* /usr/local/lib/android /opt/ghc /usr/share/dotnet /usr/local/graalvm /usr/local/.ghcup \
+        /usr/local/share/powershell /usr/local/share/chromium /usr/local/lib/node_modules
+        sudo timedatectl set-timezone "Asia/Shanghai"
+        sudo chown $USER:$GROUPS $GITHUB_WORKSPACE
 
     - name: Check Space
       run: |
@@ -122,6 +122,23 @@ jobs:
         git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash
         mv package/OpenClash/luci-app-openclash package
         rm -rf package/OpenClash
+
+    - name: Import external feeds - msd_lite
+      working-directory: ./openwrt
+      run: |
+        git clone https://github.com/ximiTech/luci-app-msd_lite.git package/luci-app-msd_lite
+        rm -rf feeds/packages/net/msd_lite
+        git clone https://github.com/ximiTech/msd_lite.git feeds/packages/net/msd_lite
+        
+    - name: Update feeds
+      working-directory: ./openwrt
+      run: |
+        ./scripts/feeds update -a
+        
+    - name: Install feeds
+      working-directory: ./openwrt
+      run: |
+        ./scripts/feeds install -a
 
     # 范例 1: 注意拉取命令的保存路径
     #- name: Import external feeds - OpenAppFilter
