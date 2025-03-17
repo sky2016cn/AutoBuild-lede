@@ -24,7 +24,9 @@
 
    编译为默认皮肤：在“customize_x86.sh”和“customize.sh”中恢复注释掉的“修改默认皮肤”
 
-6. 编译完成后，请检查 Github 输出的编译过程，细察是否出错，尤其注意“Initialization environment”安装依赖包部分
+6. 编译完成后，请检查 Github 输出的编译进程，细察是否出错。
+  
+   尤其注意“Initialization environment”安装依赖包部分，展开来细看是否出错
 
    下方“Build_xxx.yml”脚本中的八大部分参考：https://github.com/dzlea/ActionsBuildOpenWRT/tree/main/.github/workflows
    -------------------------------------------------------------------
@@ -38,7 +40,7 @@
      
    - name: Free up disk space complete
        - name: Checkout
-      uses: actions/checkout@master（注意：原文末尾是“@main”，根据自己来定义）
+      uses: actions/checkout@master  //原文末尾是“@main”，可自己来定义
 
    - name: Initialization environment
    - name: Check Space
