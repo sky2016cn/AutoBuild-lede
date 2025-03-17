@@ -26,6 +26,8 @@
 
 6. 编译完成后，请检查 Github 输出的编译过程，细察是否出错，尤其注意“Initialization environment”安装依赖包部分
 
+   Build_xxx.yml 脚本中的八大部分参考：https://github.com/dzlea/ActionsBuildOpenWRT/tree/main/.github/workflows
+   -------------------------------------------------------------------
    jobs:
   build:
     runs-on: ubuntu-22.04
@@ -40,8 +42,7 @@
 
    - name: Initialization environment
    - name: Check Space
-     
-   上面八大部分参考：https://github.com/dzlea/ActionsBuildOpenWRT/tree/main/.github/workflows
+   -------------------------------------------------------------------
 
    余下部分参考：https://github.com/esirplayground/AutoBuild-OpenWrt
 
