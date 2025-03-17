@@ -14,7 +14,7 @@
    
    CONFIG_PACKAGE_luci-theme-argon=y
 
-   编译为默认皮肤：在“customize_x86.sh”和“customize.sh”中恢复注释掉的“修改默认皮肤”
+   编译为默认皮肤：在“customize_x86.sh”和“customize.sh”恢复注释掉的“修改默认皮肤”
 
 5. 若要使用“jerrykuku/luci-theme-argon/”皮肤，在“xxx.config”文件添加
 
@@ -22,7 +22,7 @@
    
    然后在所有的“Build_xxx.yml”脚本中恢复注释掉的“luci-theme-argon”代码
 
-   编译为默认皮肤：在“customize_x86.sh”和“customize.sh”中恢复注释掉的“修改默认皮肤”
+   编译为默认皮肤：在“customize_x86.sh”和“customize.sh”恢复注释掉的“修改默认皮肤”
 
 6. 编译完成后，请检查 Github 输出的编译进程，细察是否出错。
   
