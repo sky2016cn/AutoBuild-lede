@@ -133,21 +133,22 @@ jobs:
 
     # L大默认添加了 msd_lite，使用 msd_lite 收看 IPTV
     #- name: Import external feeds - msd_lite
-      #working-directory: ./openwrt
-      #run: |
-        #git clone https://github.com/ximiTech/luci-app-msd_lite.git package/luci-app-msd_lite
-        #rm -rf feeds/packages/net/msd_lite
-        #git clone https://github.com/ximiTech/msd_lite.git feeds/packages/net/msd_lite
-               
-    - name: Update feeds
-      working-directory: ./openwrt
-      run: |
-        ./scripts/feeds update -a
+    #  working-directory: ./openwrt
+    #  run: |
+    #    git clone https://github.com/ximiTech/luci-app-msd_lite.git package/luci-app-msd_lite
+    #    rm -rf feeds/packages/net/msd_lite
+    #    git clone https://github.com/ximiTech/msd_lite.git feeds/packages/net/msd_lite
+
+    # 如果添加上方的 msd_lite，需要再次运行更新feeds命令    
+    #- name: Update feeds
+    #  working-directory: ./openwrt
+    #  run: |
+    #    ./scripts/feeds update -a
         
-    - name: Install feeds
-      working-directory: ./openwrt
-      run: |
-        ./scripts/feeds install -a
+    #- name: Install feeds
+    #  working-directory: ./openwrt
+    #  run: |
+    #    ./scripts/feeds install -a
         
     # 范例 1: 注意拉取命令的保存路径
     #- name: Import external feeds - OpenAppFilter
