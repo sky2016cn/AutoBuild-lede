@@ -157,11 +157,11 @@ jobs:
     #    git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 
     # 范例 2: 注意保存路径是feeds，替换原有的argon皮肤，如果Lean全部取消了argon皮肤，需要更改保存路径到package/luci-theme-argon
-    - name: Import external feeds - luci-theme-argon
-      working-directory: ./openwrt
-      run: |
-        rm -rf feeds/luci/themes/luci-theme-argon
-        git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon    
+    #- name: Import external feeds - luci-theme-argon
+    #  working-directory: ./openwrt
+    #  run: |
+    #    rm -rf feeds/luci/themes/luci-theme-argon
+    #    git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon  
 
     - name: Configuration Customization - Build_x86_Mix
       env:
