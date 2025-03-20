@@ -31,7 +31,7 @@
    下方“Build_xxx.yml”脚本中的八大部分参考：https://github.com/dzlea/ActionsBuildOpenWRT/tree/main/.github/workflows
    
 -----------------------------------------------------------------------
-   jobs:
+jobs:
   build:
     runs-on: ubuntu-22.04
 
