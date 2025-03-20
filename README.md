@@ -1,5 +1,5 @@
 # AutoBuild-lede
-云编译Lede-OpenWrt
+云编译 Lede-OpenWrt
 
 
 1. 编译某个插件，在“xxx.config”文件添加
@@ -32,7 +32,9 @@
 -----------------------------------------------------------------------
 
 jobs:
+
   build:
+  
     runs-on: ubuntu-22.04
 
    - name: Before freeing up disk space
