@@ -131,7 +131,7 @@ jobs:
       run: |
         git clone https://github.com/sky2016cn/luci-app-poweroff.git package/luci-app-poweroff   
 
-    # L大默认添加了 msd_lite，使用 msd_lite 收看 IPTV
+    # msd_lite 必须放在feeds命令后，L大默认添加了 msd_lite，使用 msd_lite 收看 IPTV
     #- name: Import external feeds - msd_lite
     #  working-directory: ./openwrt
     #  run: |
@@ -156,7 +156,7 @@ jobs:
     #  run: |
     #    git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 
-    # 范例 2: 注意保存路径是feeds，替换原有的argon皮肤，如果Lean全部取消了argon皮肤，需要更改保存路径到package/luci-theme-argon
+    # 范例 2: argon皮肤必须放在feeds命令后，注意保存路径是feeds，替换原有的argon皮肤，如果Lean全部取消了argon皮肤，需要更改保存路径到package/luci-theme-argon
     #- name: Import external feeds - luci-theme-argon
     #  working-directory: ./openwrt
     #  run: |
