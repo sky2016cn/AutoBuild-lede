@@ -32,9 +32,8 @@
 -----------------------------------------------------------------------
 
 jobs:
-
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-22.04  //注意ubuntu版本号
 
    - name: Before freeing up disk space
 
