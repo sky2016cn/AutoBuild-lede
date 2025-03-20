@@ -34,7 +34,6 @@
 jobs:
 
   build:
-  
     runs-on: ubuntu-22.04
 
    - name: Before freeing up disk space
