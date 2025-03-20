@@ -105,12 +105,12 @@ jobs:
       # echo "src-git dockerman https://github.com/lisaac/luci-app-dockerman" >> ./feeds.conf.default
 
     # msd_lite 必须放在feeds命令前，L大默认添加了 msd_lite，使用 msd_lite 收看 IPTV
-    #- name: Import external feeds - msd_lite
-    #  working-directory: ./openwrt
-    #  run: |
-    #    git clone https://github.com/ximiTech/luci-app-msd_lite.git package/luci-app-msd_lite
-    #    rm -rf feeds/packages/net/msd_lite
-    #    git clone https://github.com/ximiTech/msd_lite.git feeds/packages/net/msd_lite
+    - name: Import external feeds - msd_lite
+      working-directory: ./openwrt
+      run: |
+        git clone https://github.com/ximiTech/luci-app-msd_lite.git package/luci-app-msd_lite
+        rm -rf feeds/packages/net/msd_lite
+        git clone https://github.com/ximiTech/msd_lite.git feeds/packages/net/msd_lite
         
     - name: Update feeds
       working-directory: ./openwrt
