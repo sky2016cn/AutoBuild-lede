@@ -13,8 +13,9 @@ sed -i 's/192.168.1.1/192.168.2.1/g' openwrt/package/base-files/files/bin/config
 sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' openwrt/package/lean/default-settings/files/zzz-default-settings
 
 #3. 修改WiFi名称为Hello，密码password，只适用于硬路由，注意有两处保存路径
-sed -i 's/set wireless.default_radio${devidx}.ssid=OpenWrt/set wireless.default_radio${devidx}.ssid=Hello/g; s/set wireless.default_radio${devidx}.encryption=none/set wireless.default_radio${devidx}.encryption=psk-mixed/g' openwrt/package/kernel/mac80211/files/lib/wifi/mac80211.sh 
-sed -i '/set wireless.default_radio${devidx}.encryption=psk-mixed/a \                                                set wireless.default_radio${devidx}.key=password' openwrt/package/kernel/mac80211/files/lib/wifi/mac80211.sh
+sed -i 's/set wireless.default_radio${devidx}.ssid=LEDE/set wireless.default_radio${devidx}.ssid=Hello/g' openwrt/package/kernel/mac80211/files/lib/wifi/mac80211.sh
+sed -i 's/set wireless.default_radio${devidx}.encryption=none/set wireless.default_radio${devidx}.encryption=psk-mixed/g' openwrt/package/kernel/mac80211/files/lib/wifi/mac80211.sh
+sed -i '/set wireless.default_radio${devidx}.encryption=psk-mixed/a \                        set wireless.default_radio${devidx}.key=password' openwrt/package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
 #4. 修改默认皮肤
 #sed -i 's/+luci-theme-bootstrap/+luci-theme-argon/g' openwrt/feeds/luci/collections/luci/Makefile
