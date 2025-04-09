@@ -183,5 +183,5 @@ jobs:
     - name : Upload artifact
       uses: actions/upload-artifact@master
       with:
-        name: ax9000
+        name: ax9000_immortalwrt
         path: immortalwrt/bin
