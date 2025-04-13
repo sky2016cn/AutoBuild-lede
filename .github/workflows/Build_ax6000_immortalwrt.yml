@@ -119,7 +119,8 @@ jobs:
     - name: Import external feeds - OpenClash
       working-directory: ./immortalwrt
       run: |
-        git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash
+        #git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash
+        git clone --depth=1 -b dev https://github.com/vernesong/OpenClash.git package/OpenClash        
         mv package/OpenClash/luci-app-openclash package
         rm -rf package/OpenClash  
 
