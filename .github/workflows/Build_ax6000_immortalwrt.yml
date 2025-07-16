@@ -180,7 +180,7 @@ jobs:
       run: |
         df -h
         
-    - name : Upload artifact
+    - name: Upload artifact
       uses: actions/upload-artifact@master
       with:
         name: ax6000_immortalwrt
